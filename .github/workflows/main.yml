@@ -23,4 +23,4 @@ jobs:
       - name: list files
         run: ls -a
       - name: run server.js
-        run: node server.js
+        run: node learn-GitHub-actions/server.js
