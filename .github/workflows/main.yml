@@ -10,3 +10,17 @@ jobs:
         run: pwd
       - name: print node version
         run: node -v
+
+  clone-repo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: cone-repo
+        run: git clone https://github.com/AnandMaharana2004/learn-GitHub-actions.git
+      - name: list folders
+        run: ls
+      - name: enter to repo
+        run: cd learn-GitHub-actions
+      - name: list files
+        run: ls -a
+      - name: run server.js
+        run: node server.js
