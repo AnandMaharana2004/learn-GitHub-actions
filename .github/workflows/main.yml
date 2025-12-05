@@ -1,5 +1,5 @@
 name: my first workflow
-on: push
+on: [push, workflow_dispatch]
 jobs:
   first-job:
     runs-on: ubuntu-latest
@@ -8,3 +8,5 @@ jobs:
         run: ls -a
       - name: print working directory
         run: pwd
+      - name: print node version
+        run: node -v
