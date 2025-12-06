@@ -1,36 +1,10 @@
-name: my first workflow
-on: [push, workflow_dispatch]
+name : second Work Flow
+
+on : push 
+
 jobs:
-  first-job:
-    env:
-      other: "this is the env value"
+  first-job: 
     runs-on: ubuntu-latest
     steps:
-      - name: List all files
-        run: ls -a
-      - name: print working directory
-        run: pwd
-      - name: print node version
+      - name: Print node version
         run: node -v
-      - run: |
-          echo "GITHUB CONTEXT:"
-          echo '${{ toJson(github) }}'
-
-          echo "JOB CONTEXT:"
-          echo '${{ toJson(job) }}'
-
-          echo "RUNNER CONTEXT:"
-          echo '${{ toJson(runner) }}'
-
-          echo "ENV CONTEXT:"
-          echo '${{ toJson(env) }}'
-
-          echo "MATRIX CONTEXT:"
-          echo '${{ toJson(matrix) }}'
-
-          echo "INPUTS CONTEXT:"
-          echo '${{ toJson(inputs) }}'
-
-          echo "VARS CONTEXT:"
-          echo '${{ toJson(vars) }}'
-
