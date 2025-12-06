@@ -1,6 +1,10 @@
 name: second Work Flow
 
-on: push
+on: 
+  push: 
+    branches: 
+      - main
+      - develop
 
 jobs:
   first-job:
