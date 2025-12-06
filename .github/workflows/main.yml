@@ -12,4 +12,25 @@ jobs:
         run: pwd
       - name: print node version
         run: node -v
-      - run: echo '${{toJson(github)}}'
+      - run: |
+          echo "GITHUB CONTEXT:"
+          echo '${{ toJson(github) }}'
+
+          echo "JOB CONTEXT:"
+          echo '${{ toJson(job) }}'
+
+          echo "RUNNER CONTEXT:"
+          echo '${{ toJson(runner) }}'
+
+          echo "ENV CONTEXT:"
+          echo '${{ toJson(env) }}'
+
+          echo "MATRIX CONTEXT:"
+          echo '${{ toJson(matrix) }}'
+
+          echo "INPUTS CONTEXT:"
+          echo '${{ toJson(inputs) }}'
+
+          echo "VARS CONTEXT:"
+          echo '${{ toJson(vars) }}'
+
