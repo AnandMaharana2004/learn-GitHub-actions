@@ -25,3 +25,9 @@ jobs:
     steps:
       - name: Print Veriables
         run: echo ${{vars.ENV}}
+
+  print-push-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print push branch
+        run: echo ${{github.action_ref}}
