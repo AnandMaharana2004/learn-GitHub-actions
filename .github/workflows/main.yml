@@ -1,7 +1,9 @@
 name: my first workflow
-on: push
+on: [push, workflow_dispatch]
 jobs:
   first-job:
+    env:
+      other: "this is the env value"
     runs-on: ubuntu-latest
     steps:
       - name: List all files
@@ -10,3 +12,4 @@ jobs:
         run: pwd
       - name: print node version
         run: node -v
+      - run: ${{env.other}}
