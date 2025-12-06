@@ -17,11 +17,11 @@ jobs:
     environment: DEVELOPMENT
     steps:
       - name: Print veriables
-        run: ${{vars.ENV}}
+        run: echo ${{vars.ENV}}
 
   production-jon:
     runs-on: ubuntu-latest
     environment: PRODUCTION
     steps:
       - name: Print Veriables
-        run: ${{vars.ENV}}
+        run: echo ${{vars.ENV}}
