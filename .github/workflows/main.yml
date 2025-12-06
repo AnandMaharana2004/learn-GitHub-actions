@@ -12,4 +12,4 @@ jobs:
         run: pwd
       - name: print node version
         run: node -v
-      - run: echo ${{github}}
+      - run: echo ${{toJson(github)}}
