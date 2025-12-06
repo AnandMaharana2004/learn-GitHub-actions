@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: Print node version
         run: node -v
-      # - run: "${{toJson(env)}}"
-      - run: ${{vars.COSTUME_VERIABLES}}
-      - run: ${{secrets.AWS_SECREET}}
+      - run: echo "${{toJson(env)}}""
+      - run: echo ${{vars.COSTUME_VERIABLES}}
+      - run: echo ${{secrets.AWS_SECREET}}
