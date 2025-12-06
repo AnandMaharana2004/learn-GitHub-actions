@@ -1,10 +1,13 @@
-name : second Work Flow
+name: second Work Flow
 
-on : push 
+on: push
 
 jobs:
-  first-job: 
+  first-job:
     runs-on: ubuntu-latest
     steps:
       - name: Print node version
         run: node -v
+      - run: ${{env}}
+      - run: ${{vars.COSTUME_VERIABLES}}
+      - run: ${{secrets.AWS_SECREET}}
