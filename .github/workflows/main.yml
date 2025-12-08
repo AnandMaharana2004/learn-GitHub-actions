@@ -9,25 +9,36 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      SSH_HOST: 172.31.2.226
+      SSH_USER: ubuntu
+      REMOTE_APP_DIR: /home/ubuntu/storage-app-backend
+      PM2_APP_NAME: storageApp-backend
+
     steps:
-      - name: Clone frontend from git
-        run: git clone https://github.com/AnandMaharana2004/storage-app-frontend.git
-      
-      - name: Install dependencies
-        run: cd storage-app-frontend && npm install
-      
-      - name: Create .env file
-        run: echo "ALLOW_HOST_NAME=devzoon.xyz" > storage-app-frontend/.env
-      
-      - name: Build project
-        run: cd storage-app-frontend && npm run build
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-      
-      - name: Upload to S3
-        run: cd storage-app-frontend && aws s3 sync dist/ "s3://${{ secrets.S3_BUCKET_NAME }}/" --delete
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy backend on EC2
+        run: |
+          ssh "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
+            set -e
+
+            echo "Navigating to app directory..."
+            cd $REMOTE_APP_DIR
+
+            echo "Pulling latest code from GitHub..."
+            git pull origin main
+
+            echo "Installing dependencies..."
+            npm ci --no-audit --no-fund
+
+            echo "Restarting PM2 app..."
+            sudo pm2 restart $PM2_APP_NAME
+
+            echo "Backend deployed successfully!"
+          EOF
